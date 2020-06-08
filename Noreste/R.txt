@@ -1,0 +1,108 @@
+!--------------------------------------------------R1
+en
+conf t
+hostname ElCabrito
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+ 
+int g0/1
+ip address 148.60.96.1 255.255.255.0
+no shut
+int S0/0/0
+ip address 148.60.93.1 255.255.255.0
+no shut
+int s0/0/1
+ip add 148.60.103.1 255.255.255.0
+no shut
+
+router rip
+version 2
+no auto-summary
+network 148.60.96.0
+network 148.60.93.0
+
+aaa new-model
+aaa authentication login default group tacacs+
+tacacs-server host 148.60.0.150 key login
+
+!--------------------------------------------------R2
+en
+conf t
+hostname LaVaca
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+ 
+int g0/1
+ip address 148.60.95.1 255.255.255.0
+no shut
+int S0/0/0
+ip address 148.60.93.2 255.255.255.0
+no shut
+int S0/0/1
+ip address 148.60.92.1 255.255.255.0
+no shut
+int S0/1/0
+ip address 148.60.101.2 255.255.255.0
+no shut
+
+router rip
+version 2
+no auto-summary
+network 148.60.95.0
+network 148.60.93.0
+network 148.60.92.0
+network 148.60.101.0
+
+aaa new-model
+aaa authentication login default group tacacs+
+tacacs-server host 148.60.0.150 key login
+!--------------------------------------------------R3
+en
+conf t
+hostname LaSilla
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+ 
+int g0/1
+ip address 148.60.94.1 255.255.255.0
+no shut
+int S0/0/1
+ip address 148.60.92.2 255.255.255.0
+no shut
+int s0/0/0
+ip address 148.60.105.2 255.255.255.0
+no shut
+
+router rip
+version 2
+no auto-summary
+network 148.60.92.0
+network 148.60.94.0
+
+aaa new-model
+aaa authentication login default group tacacs+
+tacacs-server host 148.60.0.150 key login

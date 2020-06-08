@@ -1,0 +1,158 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname RouterCentro
+!
+!
+!
+enable secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+ip dhcp excluded-address 148.160.0.1
+ip dhcp excluded-address 148.160.0.100
+ip dhcp excluded-address 148.160.0.150
+ip dhcp excluded-address 148.160.0.200
+ip dhcp excluded-address 148.60.33.1
+ip dhcp excluded-address 148.60.34.1
+ip dhcp excluded-address 148.60.35.1
+ip dhcp excluded-address 148.60.36.1
+ip dhcp excluded-address 148.60.37.1
+!
+ip dhcp pool DHCPServer
+ network 148.60.30.0 255.255.255.0
+ default-router 148.60.30.1
+ dns-server 148.60.0.100
+ domain-name juanmark.com
+ip dhcp pool DHCPVlan33
+ network 148.60.33.0 255.255.255.0
+ default-router 148.60.33.1
+ dns-server 148.60.0.100
+ domain-name juanmark.com
+ip dhcp pool DHCPVlan34
+ network 148.60.34.0 255.255.255.0
+ default-router 148.60.34.1
+ dns-server 148.60.0.100
+ domain-name juanmark.com
+ip dhcp pool DHCPVlan35
+ network 148.60.35.0 255.255.255.0
+ default-router 148.60.35.1
+ dns-server 148.60.0.100
+ domain-name juanmark.com
+ip dhcp pool DHCPVlan36
+ network 148.60.36.0 255.255.255.0
+ default-router 148.60.36.1
+ dns-server 148.60.0.100
+ domain-name juanmark.com
+ip dhcp pool DHCPVlan37
+ network 148.60.37.0 255.255.255.0
+ default-router 148.60.37.1
+ dns-server 148.60.0.100
+ domain-name juanmark.com
+!
+!
+aaa new-model
+!
+aaa authentication login default group tacacs+ 
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username administrador privilege 15 secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+license udi pid CISCO2901/K9 sn FTX1524FG8E-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name juanmark.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 148.60.30.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/0.33
+ encapsulation dot1Q 33
+ ip address 148.60.33.1 255.255.255.0
+!
+interface GigabitEthernet0/0.34
+ encapsulation dot1Q 34
+ ip address 148.60.34.1 255.255.255.0
+!
+interface GigabitEthernet0/0.35
+ encapsulation dot1Q 35
+ ip address 148.60.35.1 255.255.255.0
+!
+interface GigabitEthernet0/0.36
+ encapsulation dot1Q 36
+ ip address 148.60.36.1 255.255.255.0
+!
+interface GigabitEthernet0/0.37
+ encapsulation dot1Q 37
+ ip address 148.60.37.1 255.255.255.0
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router rip
+ version 2
+ network 148.60.0.0
+ no auto-summary
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+!
+tacacs-server host 148.60.0.150 key login
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ transport input ssh
+line vty 5 15
+ transport input ssh
+!
+!
+!
+end
+

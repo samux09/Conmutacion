@@ -1,0 +1,364 @@
+!--------------------------------------------------Sw1
+en
+conf t
+hostname SW1
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+
+vlan 97
+name "Gestion de TI"
+vlan 98
+name Ventas
+vlan 99
+name Compras
+vlan 100
+name Servicios
+
+int g0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+int g0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+
+int range f0/5-9
+switchport mode access
+switchport port-security
+switchport access vlan 97
+int range f0/10-14
+switchport mode access
+switchport port-security
+switchport access vlan 98
+int range f0/15-19
+switchport mode access
+switchport port-security
+switchport access vlan 99
+int range f0/20-24
+switchport mode access
+switchport port-security
+switchport access vlan 100
+int range f0/1-4
+switchport mode access
+switchport port-security
+
+exit
+spanning-tree vlan 97 root primary
+
+int range f0/1-9
+shut
+int range f0/12-14
+shut
+int range f0/16-19
+shut
+int range f0/21-24
+shut
+!--------------------------------------------------Sw2
+en
+conf t
+hostname SW2
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+
+vlan 97
+name "Gestion de TI"
+vlan 98
+name Ventas
+vlan 99
+name Compras
+vlan 100
+name Servicios
+
+int g0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+int g0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+
+int range f0/5-9
+switchport mode access
+switchport port-security
+switchport access vlan 97
+int range f0/10-14
+switchport mode access
+switchport port-security
+switchport access vlan 98
+int range f0/15-19
+switchport mode access
+switchport port-security
+switchport access vlan 99
+int range f0/20-24
+switchport mode access
+switchport port-security
+switchport access vlan 100
+int range f0/2-4
+switchport mode access
+switchport port-security
+int f0/1
+no switchport
+ip address 148.60.96.2 255.255.255.0
+
+exit
+spanning-tree vlan 98 root primary
+
+int vlan 97
+ip address 148.60.97.254 255.255.255.0
+standby 97 ip 148.60.97.1
+standby 97 prior 110
+standby 97 preem
+
+int vlan 98
+ip address 148.60.98.254 255.255.255.0
+standby 98 ip 148.60.98.1
+standby 98 prior 110
+standby 98 preem
+
+int vlan 99
+ip address 148.60.99.254 255.255.255.0
+standby 99 ip 148.60.99.1
+standby 99 preem
+
+int vlan 100
+ip address 148.60.100.254 255.255.255.0
+standby 100 ip 148.60.100.1
+standby 100 preem
+
+exit
+ip routing
+router rip
+version 2
+no auto-summary
+network 148.60.97.0
+network 148.60.98.0
+network 148.60.99.0
+network 148.60.100.0
+network 148.60.96.0
+
+int range f0/2-14
+shut
+int range f0/16-19
+shut
+int range f0/21-24
+shut
+
+!--------------------------------------------------Sw3
+en
+conf t
+hostname SW3
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+
+vlan 97
+name "Gestion de TI"
+vlan 98
+name Ventas
+vlan 99
+name Compras
+vlan 100
+name Servicios
+
+int g0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+int g0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+
+int range f0/5-9
+switchport mode access
+switchport port-security
+switchport access vlan 97
+int range f0/10-14
+switchport mode access
+switchport port-security
+switchport access vlan 98
+int range f0/15-19
+switchport mode access
+switchport port-security
+switchport access vlan 99
+int range f0/20-24
+switchport mode access
+switchport port-security
+switchport access vlan 100
+int range f0/2-4
+switchport mode access
+switchport port-security
+int f0/1
+no switchport
+ip address 148.60.95.2 255.255.255.0
+
+exit
+spanning-tree vlan 99 root primary
+
+int vlan 97
+ip address 148.60.97.253 255.255.255.0
+standby 97 ip 148.60.97.1
+standby 97 preem
+
+int vlan 98
+ip address 148.60.98.253 255.255.255.0
+standby 98 ip 148.60.98.1
+standby 98 preem
+
+int vlan 99
+ip address 148.60.99.253 255.255.255.0
+standby 99 ip 148.60.99.1
+standby 99 preem
+
+int vlan 100
+ip address 148.60.100.253 255.255.255.0
+standby 100 ip 148.60.100.1
+standby 100 preem
+
+exit
+ip routing
+router rip
+version 2
+no auto-summary
+network 148.60.97.0
+network 148.60.98.0
+network 148.60.99.0
+network 148.60.100.0
+network 148.60.95.0
+
+int range f0/2-24
+shut
+
+!--------------------------------------------------Sw4
+en
+conf t
+hostname SW4
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+
+vlan 97
+name "Gestion de TI"
+vlan 98
+name Ventas
+vlan 99
+name Compras
+vlan 100
+name Servicios
+
+int g0/1
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+int g0/2
+switchport trunk encapsulation dot1q
+switchport mode trunk
+switchport nonegotiate
+switchport trunk allowed vlan 97,98,99,100
+
+int range f0/5-9
+switchport mode access
+switchport port-security
+switchport access vlan 97
+int range f0/10-14
+switchport mode access
+switchport port-security
+switchport access vlan 98
+int range f0/15-19
+switchport mode access
+switchport port-security
+switchport access vlan 99
+int range f0/20-24
+switchport mode access
+switchport port-security
+switchport access vlan 100
+int range f0/2-4
+switchport mode access
+switchport port-security
+int f0/1
+no switchport
+ip address 148.60.94.2 255.255.255.0
+
+exit
+spanning-tree vlan 100 root primary
+
+int vlan 97
+ip address 148.60.97.252 255.255.255.0
+standby 97 ip 148.60.97.1
+standby 97 preem
+
+int vlan 98
+ip address 148.60.98.252 255.255.255.0
+standby 98 ip 148.60.98.1
+standby 98 preem
+
+int vlan 99
+ip address 148.60.99.252 255.255.255.0
+standby 99 ip 148.60.99.1
+standby 99 prior 110
+standby 99 preem
+
+int vlan 100
+ip address 148.60.100.252 255.255.255.0
+standby 100 ip 148.60.100.1
+standby 100 prior 110
+standby 100 preem
+
+exit
+ip routing
+router rip
+version 2
+no auto-summary
+network 148.60.97.0
+network 148.60.98.0
+network 148.60.99.0
+network 148.60.100.0
+network 148.60.94.0
+
+int range f0/2-4
+shut
+int range f0/6-9
+shut
+int range f0/11-14
+shut
+int range f0/16-24
+shut

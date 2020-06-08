@@ -1,0 +1,116 @@
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname HSRP
+!
+!
+!
+enable secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+username administrador privilege 15 secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+license udi pid CISCO2901/K9 sn FTX152433QX-
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name juanmark.com
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 148.60.60.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ ip address 148.60.61.1 255.255.255.0
+ duplex auto
+ speed auto
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan65
+ mac-address 0003.e44a.ba01
+ no ip address
+ standby 1 ip 148.60.64.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+interface Vlan66
+ mac-address 0003.e44a.ba02
+ no ip address
+ standby 1 ip 148.60.65.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+interface Vlan67
+ mac-address 0003.e44a.ba03
+ no ip address
+ standby 1 ip 148.60.66.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+interface Vlan68
+ mac-address 0003.e44a.ba04
+ no ip address
+ standby 1 ip 148.60.67.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+!
+!
+end
+

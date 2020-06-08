@@ -1,0 +1,195 @@
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname MS4
+!
+!
+enable secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+!
+!
+!
+ip routing
+!
+!
+!
+!
+username administrador privilege 15 secret 5 $1$mERr$RldxcCZEZsTFTETUyRaA50
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+ip ssh version 2
+ip domain-name juanmark.com
+!
+!
+spanning-tree mode pvst
+spanning-tree vlan 65-68 priority 8192
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport trunk encapsulation dot1q
+!
+interface Port-channel2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface Port-channel4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+!
+interface FastEthernet0/1
+!
+interface FastEthernet0/2
+!
+interface FastEthernet0/3
+ switchport trunk allowed vlan 65-68
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode desirable
+!
+interface FastEthernet0/4
+ switchport trunk allowed vlan 65-68
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 2 mode desirable
+!
+interface FastEthernet0/5
+!
+interface FastEthernet0/6
+ switchport trunk allowed vlan 65-68
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/7
+ switchport trunk allowed vlan 65-68
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+!
+interface FastEthernet0/8
+ switchport trunk allowed vlan 65-68
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 4 mode desirable
+!
+interface FastEthernet0/9
+ switchport trunk allowed vlan 65-68
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ channel-group 4 mode desirable
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan65
+ mac-address 0030.a374.6001
+ ip address 148.60.64.5 255.255.255.0
+ standby 1 ip 148.60.64.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+interface Vlan66
+ mac-address 0030.a374.6002
+ ip address 148.60.65.5 255.255.255.0
+ standby 1 ip 148.60.65.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+interface Vlan67
+ mac-address 0030.a374.6003
+ ip address 148.60.66.5 255.255.255.0
+ standby 1 ip 148.60.66.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+interface Vlan68
+ mac-address 0030.a374.6004
+ ip address 148.60.67.5 255.255.255.0
+ standby 1 ip 148.60.67.254
+ standby 1 priority 200
+ standby 1 preempt
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+!
+no cdp run
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login local
+ transport input ssh
+line vty 5 15
+ login local
+ transport input ssh
+!
+!
+!
+!
+end
+
