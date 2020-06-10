@@ -1,0 +1,56 @@
+en
+conf t
+hostname Sw0
+ip domain-name juanmark.com
+username administrador privilege 15 secret Cisco123
+crypto key generate rsa
+yes
+2048
+ip ssh version 2
+enable secret Cisco123
+line vty 0 15
+transport input ssh
+login local
+
+
+interface f0/1
+switchport access vlan 9
+switchport mode access
+
+int range f0/2-20
+shutdown
+
+int f0/21
+switchport access vlan 10
+switchport mode access
+
+int f0/22
+switchport trunk allowed vlan 5-7,9
+switchport mode trunk
+switchport nonegotiate
+
+int f0/23
+switchport access vlan 10
+switchport mode access
+
+int f0/24
+switchport access vlan 10
+switchport mode access
+
+int g0/1
+switchport trunk allowed vlan 5-7,9-10
+switchport mode trunk
+switchport nonegotiate
+
+int g0/2
+switchport trunk allowed vlan 5-7,9
+switchport mode trunk
+switchport nonegotiate
+
+int Vlan1
+ip address 148.60.1.1 255.255.255.0
+
+int Vlan9
+mac-address 00e0.f732.2c01
+ip address 148.60.9.3 255.255.255.0
+

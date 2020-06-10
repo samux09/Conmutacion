@@ -260,6 +260,41 @@ network 148.60.95.0
 int range f0/2-24
 shut
 
+ip dhcp excluded-address 148.60.98.60
+
+ip dhcp excluded-address 148.60.97.1
+ip dhcp excluded-address 148.60.98.1
+ip dhcp excluded-address 148.60.99.1
+ip dhcp excluded-address 148.60.100.1
+ip dhcp excluded-address 148.60.97.254
+ip dhcp excluded-address 148.60.98.254
+ip dhcp excluded-address 148.60.99.254
+ip dhcp excluded-address 148.60.100.254
+ip dhcp excluded-address 148.60.97.253
+ip dhcp excluded-address 148.60.98.253
+ip dhcp excluded-address 148.60.99.253
+ip dhcp excluded-address 148.60.100.253
+ip dhcp excluded-address 148.60.97.252
+ip dhcp excluded-address 148.60.98.252
+ip dhcp excluded-address 148.60.99.252
+ip dhcp excluded-address 148.60.100.252
+
+ip dhcp pool vlan97
+network 148.60.97.0 255.255.255.0
+dns-server 148.60.0.100
+default-router 148.60.97.1
+ip dhcp pool vlan98
+network 148.60.98.0 255.255.255.0
+dns-server 148.60.0.100
+default-router 148.60.98.1
+ip dhcp pool vlan99
+network 148.60.99.0 255.255.255.0
+dns-server 148.60.0.100
+default-router 148.60.99.1
+ip dhcp pool vlan100
+network 148.60.100.0 255.255.255.0
+dns-server 148.60.0.100
+default-router 148.60.100.1
 !--------------------------------------------------Sw4
 en
 conf t

@@ -58,6 +58,9 @@ interface GigabitEthernet1/0/4
  switchport nonegotiate
 !
 interface GigabitEthernet1/0/5
+ switchport access vlan 33
+ switchport mode access
+ switchport nonegotiate
 !
 interface GigabitEthernet1/0/6
 !

@@ -56,9 +56,11 @@ ip address 148.60.93.2 255.255.255.0
 no shut
 int S0/0/1
 ip address 148.60.92.1 255.255.255.0
+clock rate 2000000
 no shut
 int S0/1/0
 ip address 148.60.101.2 255.255.255.0
+clock rate 2000000
 no shut
 
 router rip

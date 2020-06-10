@@ -124,6 +124,7 @@ interface GigabitEthernet0/1
 !
 interface Serial0/0/0
  ip address 148.60.102.2 255.255.255.0
+ clock rate 2000000
 !
 interface Serial0/0/1
  ip address 148.60.103.2 255.255.255.0
@@ -131,7 +132,7 @@ interface Serial0/0/1
 !
 interface Serial0/1/0
  ip address 148.60.104.2 255.255.255.0
- clock rate 2000000
+ clock rate 1000000
 !
 interface Serial0/1/1
  no ip address
